@@ -35,7 +35,10 @@ THIRD_APPS = [
 ]
 
 PROJECT_APPS = [
-    'apps.accounts.apps.AccountsConfig'
+    'apps.profiles.apps.ProfilesConfig',
+    'apps.accounts.apps.AccountsConfig',
+    'apps.trees.apps.TreesConfig',
+    'apps.core.apps.CoreConfig'
 ]
 
 INSTALLED_APPS = PROJECT_APPS + THIRD_APPS + DEFAULT_APPS
