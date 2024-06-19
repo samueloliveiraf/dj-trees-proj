@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+
+</head>
+
+<body>
+{% if request.user.is_authenticated %}
+    <ul class="menu">
+        <li {% if section == "dashboard" %} class="selected" {% endif %}>
+            <a href="{% url 'dashboard' %}">My Dashboard</a>
+        </li>
+        <li {% if section == "images" %} class="selected" {% endif %}>
+            <a href="#">Images</a>
+        </li>
+        <li {% if section == "people" %} class="selected" {% endif %}>
+            <a href="#">People</a>
+        </li>
+        <li>
+            {% if request.user.is_authenticated %}
+                <form id="logout-form" action="{% url 'logout' %}" method="post" style="display:none;">
+                    {% csrf_token %}
+                </form>
+                <a href="#" onclick="document.getElementById('logout-form').submit();">Sair</a>
+            {% endif %}
+        </li>
+    </ul>
+{% endif %}
+
+<div class="ui container">
+<span class="user">
+        {% if request.user.is_authenticated %}
+            Bem vindo {{ request.user.username }}
+        {% elif request.path != '/account/login/' %}
+            <a href="{% url 'login' %}">
+                <button type="button" class="ui primary button center">Fazer Login</button>
+            </a>
+        {% endif %}
+    </span>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+</html>

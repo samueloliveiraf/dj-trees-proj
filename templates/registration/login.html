@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+{% block content %}
+    <div class="ui middle aligned center aligned grid" style="height: 100vh;">
+        <div class="column" style="max-width: 450px;">
+            <div class="ui segment">
+                <p>Informe seu login</p>
+                <form method="POST" class="ui form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    <button type="submit" class="ui primary button">Entrar</button>
+                    <div>
+                        <a href="{% url 'password_reset' %}" class="ui button" style="margin-top: 10px;">
+                            Esqueceu a senha?
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
